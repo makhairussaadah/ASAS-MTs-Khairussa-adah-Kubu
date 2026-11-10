@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAS Kanji 2026/2027 - MTs Khairussa'adah Kubu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h2 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+        h3 {
+            color: #555;
+            font-weight: 400;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+        .hidden {
+            display: none;
+        }
+        .error-msg {
+            color: #d32f2f;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Halaman Login -->
+    <div id="login-page" class="card">
+        <h2>MTs KHAIRUSSA'ADAH KUBU</h2>
+        <h3>Sumatif Akhir Semester (SAS) Ganjil<br>Tahun Ajaran 2026/2027</h3>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username / NISN</label>
+                <input type="text" id="username" placeholder="Masukkan Username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan Password" required>
+            </div>
+            <button type="submit">Masuk</button>
+            <p id="error-message" class="error-msg hidden">Username atau Password salah!</p>
+        </form>
+    </div>
+
+    <!-- 2. Halaman Pilih Kelas & Jam Ujian -->
+    <div id="selection-page" class="card hidden">
+        <h2>PILIH UJIAN</h2>
+        <h3>Silahkan pilih Kelas dan Jam Ujian Anda</h3>
+
+        <div class="form-group">
+            <label for="kelas">Kelas</label>
+            <select id="kelas">
+                <option value="">-- Pilih Kelas --</option>
+                <option value="VII">Kelas VII</option>
+                <option value="VIII">Kelas VIII</option>
+                <option value="IX">Kelas IX</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="jam">Jam Ke-</label>
+            <select id="jam">
+                <option value="">-- Pilih Jam Ujian --</option>
+                <option value="1">Jam Ke-1</option>
+                <option value="2">Jam Ke-2</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="bukaSoal()">Buka Soal Ujian</button>
+        <button type="button" onclick="logout()" style="background-color: #757575; margin-top: 8px;">Keluar</button>
+    </div>
+
+    <script>
+        // Data Tautan Google Form Soal Ujian
+        // Silakan ganti link di bawah sesuai dengan link Google Form yang sebenarnya
+        const linkSoal = {
+            "VII": {
+                "1": "https://forms.google.com/LINK_KELAS_7_JAM_1",
+                "2": "https://forms.google.com/LINK_KELAS_7_JAM_2"
+            },
+            "VIII": {
+                "1": "https://forms.google.com/LINK_KELAS_8_JAM_1",
+                "2": "https://forms.google.com/LINK_KELAS_8_JAM_2"
+            },
+            "IX": {
+                "1": "https://forms.google.com/LINK_KELAS_9_JAM_1",
+                "2": "https://forms.google.com/LINK_KELAS_9_JAM_2"
+            }
+        };
+
+        // Proses Login Sederhana
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            // Contoh kredensial default (Dapat disesuaikan)
+            if (user === "siswa" && pass === "123456") {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('selection-page').classList.remove('hidden');
+            } else {
+                document.getElementById('error-message').classList.remove('hidden');
+            }
+        });
+
+        // Pengarahan ke Google Form
+        function bukaSoal() {
+            const kelas = document.getElementById('kelas').value;
+            const jam = document.getElementById('jam').value;
+
+            if (!kelas || !jam) {
+                alert("Silahkan pilih Kelas dan Jam Ujian terlebih dahulu!");
+                return;
+            }
+
+            const targetURL = linkSoal[kelas][jam];
+            window.location.href = targetURL;
+        }
+
+        // Fungsi Logout
+        function logout() {
+            document.getElementById('selection-page').classList.add('hidden');
+            document.getElementById('login-page').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('error-message').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
