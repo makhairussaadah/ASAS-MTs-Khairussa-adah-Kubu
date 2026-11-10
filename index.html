@@ -88,7 +88,7 @@
     <!-- 1. Halaman Login -->
     <div id="login-page" class="card">
         <h2>MTs KHAIRUSSA'ADAH KUBU</h2>
-        <h3>Asessmen Sumatif Akhir Semester (ASAS) Ganjil<br>Tahun Ajaran 2026/2027</h3>
+        <h3>Sumatif Akhir Semester (SAS) Ganjil<br>Tahun Ajaran 2026/2027</h3>
         
         <form id="login-form">
             <div class="form-group">
@@ -104,10 +104,10 @@
         </form>
     </div>
 
-    <!-- 2. Halaman Pilih Kelas & Jam Ujian -->
+    <!-- 2. Halaman Pilih Kelas Saja -->
     <div id="selection-page" class="card hidden">
-        <h2>PILIH UJIAN</h2>
-        <h3>Silahkan pilih Kelas dan Jam Ujian Anda</h3>
+        <h2>PILIH KELAS UJIAN</h2>
+        <h3>Silahkan pilih Kelas Anda</h3>
 
         <div class="form-group">
             <label for="kelas">Kelas</label>
@@ -119,15 +119,6 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="jam">Jam Ke-</label>
-            <select id="jam">
-                <option value="">-- Pilih Jam Ujian --</option>
-                <option value="1">Jam Ke-1</option>
-                <option value="2">Jam Ke-2</option>
-            </select>
-        </div>
-
         <button type="button" onclick="bukaSoal()">Buka Soal Ujian</button>
         <button type="button" onclick="logout()" style="background-color: #757575; margin-top: 8px;">Keluar</button>
     </div>
@@ -136,20 +127,11 @@
         // Ganti dengan URL Web App dari Google Apps Script Anda
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzygNDA0itEY4gQ4VOY42Ped5XaAhXVnX5oz6kyOQI2L1u5fyG1d_UDkONLMrw8yQ/exec";
 
-        // Data Tautan Google Form Soal Ujian
+        // Data Tautan Google Form Soal Ujian per Kelas
         const linkSoal = {
-            "VII": {
-                "1": "https://forms.gle/EUbnTef6UKDVQN4y8",
-                "2": "https://forms.gle/rHqZc2n9KHZrUg6T9"
-            },
-            "VIII": {
-                "1": "https://forms.gle/p6dRsjLvcFoRXvgp7",
-                "2": "https://forms.gle/44VYwBY7GKeqqkEt7"
-            },
-            "IX": {
-                "1": "https://forms.gle/qtfiThdGaoFZh42m9",
-                "2": "https://forms.gle/ferUXAw2yAXcyxdK7"
-            }
+            "VII": "https://forms.gle/CRQN5WjCUNe3g47S6",
+            "VIII": "https://forms.gle/32u3qi6D2JyWGtpk6",
+            "IX": "https://forms.gle/Mt1GhKmWQwbEJ4P16"
         };
 
         // Proses Login Mengecek ke Google Sheets
@@ -180,17 +162,16 @@
             });
         });
 
-        // Pengarahan ke Google Form
+        // Pengarahan ke Google Form Berdasarkan Kelas
         function bukaSoal() {
             const kelas = document.getElementById('kelas').value;
-            const jam = document.getElementById('jam').value;
 
-            if (!kelas || !jam) {
-                alert("Silahkan pilih Kelas dan Jam Ujian terlebih dahulu!");
+            if (!kelas) {
+                alert("Silahkan pilih Kelas terlebih dahulu!");
                 return;
             }
 
-            const targetURL = linkSoal[kelas][jam];
+            const targetURL = linkSoal[kelas];
             window.location.href = targetURL;
         }
 
