@@ -5,81 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAS Kanji 2026/2027 - MTs Khairussa'adah Kubu</title>
     <style>
+        :root {
+            --primary-color: #1b5e20;
+            --primary-hover: #2e7d32;
+            --bg-color: #f0f4f1;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #dcedc8;
+        }
+
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
         }
+
         body {
-            background-color: #f4f7f6;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f0f4f1 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
         }
+
         .card {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(27, 94, 32, 0.08);
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             text-align: center;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.4s ease-in-out;
         }
-        h2 {
-            color: #1b5e20;
-            margin-bottom: 8px;
-            font-size: 20px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        h3 {
-            color: #555;
-            font-weight: 400;
+
+        .logo-area {
             margin-bottom: 20px;
-            font-size: 14px;
         }
+
+        .logo-area div {
+            width: 65px;
+            height: 65px;
+            background-color: #e8f5e9;
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 12px auto;
+            border: 2px solid var(--primary-hover);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        h3 {
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             text-align: left;
         }
+
         label {
             display: block;
-            margin-bottom: 5px;
-            color: #333;
+            margin-bottom: 6px;
+            color: var(--text-color);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
         input, select {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px 14px;
+            border: 1.5px solid #d0d7de;
+            border-radius: 8px;
             font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: #fafbfc;
         }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+        }
+
         button {
             width: 100%;
-            padding: 12px;
-            background-color: #2e7d32;
+            padding: 13px;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-            transition: background 0.3s;
+            transition: background 0.2s, transform 0.1s;
         }
+
         button:hover {
-            background-color: #1b5e20;
+            background-color: var(--primary-hover);
         }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
         .hidden {
             display: none;
         }
+
         .error-msg {
             color: #d32f2f;
             font-size: 13px;
-            margin-top: 10px;
+            margin-top: 12px;
+            background-color: #ffebee;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ffcdd2;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -87,32 +168,38 @@
 
     <!-- 1. Halaman Login -->
     <div id="login-page" class="card">
-        <h2>MTs KHAIRUSSA'ADAH KUBU</h2>
+        <div class="logo-area">
+            <div>MTs</div>
+            <h2>KHAIRUSSA'ADAH KUBU</h2>
+        </div>
         <h3>Sumatif Akhir Semester (SAS) Ganjil<br>Tahun Ajaran 2026/2027</h3>
         
         <form id="login-form">
             <div class="form-group">
                 <label for="username">Nama Lengkap</label>
-                <input type="text" id="username" placeholder="Masukkan Nama Lengkap Anda" required>
+                <input type="text" id="username" placeholder="Masukkan nama lengkap Anda" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Masukkan Password" required>
+                <input type="password" id="password" placeholder="Masukkan password ujian" required>
             </div>
-            <button type="submit">Masuk</button>
-            <p id="error-message" class="error-msg hidden">Nama atau Password salah!</p>
+            <button type="submit" id="btn-login">Masuk Ujian</button>
+            <div id="error-message" class="error-msg hidden">Nama atau Password salah. Periksa kembali!</div>
         </form>
     </div>
 
-    <!-- 2. Halaman Pilih Kelas Saja -->
+    <!-- 2. Halaman Pilih Kelas -->
     <div id="selection-page" class="card hidden">
-        <h2>PILIH KELAS UJIAN</h2>
-        <h3>Silahkan pilih Kelas Anda</h3>
+        <div class="logo-area">
+            <div>✓</div>
+            <h2>PILIH KELAS</h2>
+        </div>
+        <h3>Silahkan pilih kelas Anda untuk melanjutkan ke lembar soal</h3>
 
         <div class="form-group">
             <label for="kelas">Kelas</label>
             <select id="kelas">
-                <option value="">-- Pilih Kelas --</option>
+                <option value="">-- Pilih Kelas Anda --</option>
                 <option value="VII">Kelas VII</option>
                 <option value="VIII">Kelas VIII</option>
                 <option value="IX">Kelas IX</option>
@@ -120,7 +207,7 @@
         </div>
 
         <button type="button" onclick="bukaSoal()">Buka Soal Ujian</button>
-        <button type="button" onclick="logout()" style="background-color: #757575; margin-top: 8px;">Keluar</button>
+        <button type="button" class="btn-secondary" onclick="logout()">Keluar Akun</button>
     </div>
 
     <script>
@@ -140,8 +227,11 @@
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             
+            const btnLogin = document.getElementById('btn-login');
             const errorMsg = document.getElementById('error-message');
             errorMsg.classList.add('hidden');
+            btnLogin.classList.add('loading');
+            btnLogin.innerText = "Memeriksa...";
 
             fetch(WEB_APP_URL, {
                 method: "POST",
@@ -149,6 +239,9 @@
             })
             .then(response => response.json())
             .then(data => {
+                btnLogin.classList.remove('loading');
+                btnLogin.innerText = "Masuk Ujian";
+
                 if (data.status === true) {
                     document.getElementById('login-page').classList.add('hidden');
                     document.getElementById('selection-page').classList.remove('hidden');
@@ -157,8 +250,10 @@
                 }
             })
             .catch(error => {
+                btnLogin.classList.remove('loading');
+                btnLogin.innerText = "Masuk Ujian";
                 console.error('Error:', error);
-                alert('Terjadi kesalahan koneksi.');
+                alert('Terjadi kesalahan koneksi internet.');
             });
         });
 
@@ -181,6 +276,7 @@
             document.getElementById('login-page').classList.remove('hidden');
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
+            document.getElementById('kelas').value = '';
             document.getElementById('error-message').classList.add('hidden');
         }
     </script>
