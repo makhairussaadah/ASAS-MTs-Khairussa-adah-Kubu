@@ -92,15 +92,15 @@
         
         <form id="login-form">
             <div class="form-group">
-                <label for="username">Username / NISN</label>
-                <input type="text" id="username" placeholder="Masukkan Username" required>
+                <label for="username">Nama Lengkap</label>
+                <input type="text" id="username" placeholder="Masukkan Nama Lengkap Anda" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Masukkan Password" required>
             </div>
             <button type="submit">Masuk</button>
-            <p id="error-message" class="error-msg hidden">Username atau Password salah!</p>
+            <p id="error-message" class="error-msg hidden">Nama atau Password salah!</p>
         </form>
     </div>
 
@@ -133,36 +133,51 @@
     </div>
 
     <script>
+        // Ganti dengan URL Web App dari Google Apps Script Anda
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzygNDA0itEY4gQ4VOY42Ped5XaAhXVnX5oz6kyOQI2L1u5fyG1d_UDkONLMrw8yQ/exec";
+
         // Data Tautan Google Form Soal Ujian
-        // Silakan ganti link di bawah sesuai dengan link Google Form yang sebenarnya
         const linkSoal = {
             "VII": {
-                "1": "https://forms.google.com/LINK_KELAS_7_JAM_1",
-                "2": "https://forms.google.com/LINK_KELAS_7_JAM_2"
+                "1": "https://forms.gle/EUbnTef6UKDVQN4y8",
+                "2": "https://forms.gle/rHqZc2n9KHZrUg6T9"
             },
             "VIII": {
-                "1": "https://forms.google.com/LINK_KELAS_8_JAM_1",
-                "2": "https://forms.google.com/LINK_KELAS_8_JAM_2"
+                "1": "https://forms.gle/p6dRsjLvcFoRXvgp7",
+                "2": "https://forms.gle/44VYwBY7GKeqqkEt7"
             },
             "IX": {
-                "1": "https://forms.google.com/LINK_KELAS_9_JAM_1",
-                "2": "https://forms.google.com/LINK_KELAS_9_JAM_2"
+                "1": "https://forms.gle/qtfiThdGaoFZh42m9",
+                "2": "https://forms.gle/ferUXAw2yAXcyxdK7"
             }
         };
 
-        // Proses Login Sederhana
+        // Proses Login Mengecek ke Google Sheets
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.classList.add('hidden');
 
-            // Contoh kredensial default (Dapat disesuaikan)
-            if (user === "siswa" && pass === "123456") {
-                document.getElementById('login-page').classList.add('hidden');
-                document.getElementById('selection-page').classList.remove('hidden');
-            } else {
-                document.getElementById('error-message').classList.remove('hidden');
-            }
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: JSON.stringify({ username: user, password: pass })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === true) {
+                    document.getElementById('login-page').classList.add('hidden');
+                    document.getElementById('selection-page').classList.remove('hidden');
+                } else {
+                    errorMsg.classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan koneksi.');
+            });
         });
 
         // Pengarahan ke Google Form
