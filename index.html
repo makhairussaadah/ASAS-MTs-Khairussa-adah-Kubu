@@ -6,23 +6,25 @@
     <title>SAS Kanji 2026/2027 - MTs Khairussa'adah Kubu</title>
     <style>
         :root {
-            --primary-color: #1b5e20;
-            --primary-hover: #2e7d32;
-            --bg-color: #f0f4f1;
+            --primary-dark: #004d40;
+            --primary-main: #00796b;
+            --primary-light: #26a69a;
+            --accent-color: #ffb300;
+            --bg-gradient: linear-gradient(135deg, #00796b 0%, #004d40 100%);
             --card-bg: #ffffff;
-            --text-color: #333333;
-            --border-color: #dcedc8;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
         }
 
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
         body {
-            background: linear-gradient(135deg, #e8f5e9 0%, #f0f4f1 100%);
+            background: var(--bg-gradient);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,53 +34,59 @@
 
         .card {
             background: var(--card-bg);
-            padding: 35px 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(27, 94, 32, 0.08);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             text-align: center;
-            border: 1px solid var(--border-color);
-            animation: fadeIn 0.4s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        /* Garis aksen warna-warni di atas card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00796b, #26a69a, #ffb300);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .logo-area {
-            margin-bottom: 20px;
-        }
-
-        .logo-area div {
-            width: 65px;
-            height: 65px;
-            background-color: #e8f5e9;
-            color: var(--primary-color);
-            font-size: 28px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .school-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 15px auto;
+            display: block;
             border-radius: 50%;
-            margin: 0 auto 12px auto;
-            border: 2px solid var(--primary-hover);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: #f7f9f9;
+            padding: 5px;
         }
 
         h2 {
-            color: var(--primary-color);
-            font-size: 20px;
+            color: var(--primary-dark);
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
         h3 {
-            color: #666;
+            color: var(--text-muted);
             font-weight: 400;
             margin-bottom: 25px;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .form-group {
@@ -89,59 +97,57 @@
         label {
             display: block;
             margin-bottom: 6px;
-            color: var(--text-color);
+            color: var(--text-main);
             font-weight: 600;
             font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         input, select {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #d0d7de;
-            border-radius: 8px;
+            padding: 13px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 14px;
             outline: none;
             transition: all 0.3s ease;
-            background-color: #fafbfc;
+            background-color: #fafafa;
         }
 
         input:focus, select:focus {
-            border-color: var(--primary-color);
+            border-color: var(--primary-main);
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 121, 107, 0.15);
         }
 
         button {
             width: 100%;
-            padding: 13px;
-            background-color: var(--primary-color);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-main), var(--primary-dark));
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.2s, transform 0.1s;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
         }
 
         button:hover {
-            background-color: var(--primary-hover);
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 121, 107, 0.4);
         }
 
         button:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
         .btn-secondary {
-            background-color: #6c757d;
+            background: linear-gradient(135deg, #7f8c8d, #636e72);
+            box-shadow: 0 4px 12px rgba(127, 140, 141, 0.3);
             margin-top: 8px;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
         }
 
         .hidden {
@@ -149,13 +155,14 @@
         }
 
         .error-msg {
-            color: #d32f2f;
+            color: #c0392b;
             font-size: 13px;
-            margin-top: 12px;
-            background-color: #ffebee;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ffcdd2;
+            margin-top: 15px;
+            background-color: #fadbd8;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #f5b7b1;
+            font-weight: 500;
         }
 
         .loading {
@@ -168,10 +175,10 @@
 
     <!-- 1. Halaman Login -->
     <div id="login-page" class="card">
-        <div class="logo-area">
-            <div>MTs</div>
-            <h2>KHAIRUSSA'ADAH KUBU</h2>
-        </div>
+        <!-- Logo Sekolah (Pastikan file logo-mts.png berada di folder yang sama di GitHub) -->
+        <img src="logo-mts.png" alt="Logo MTs Khairussa'adah" class="school-logo" onerror="this.style.display='none'">
+        
+        <h2>MTs KHAIRUSSA'ADAH KUBU</h2>
         <h3>Sumatif Akhir Semester (SAS) Ganjil<br>Tahun Ajaran 2026/2027</h3>
         
         <form id="login-form">
@@ -190,11 +197,10 @@
 
     <!-- 2. Halaman Pilih Kelas -->
     <div id="selection-page" class="card hidden">
-        <div class="logo-area">
-            <div>✓</div>
-            <h2>PILIH KELAS</h2>
-        </div>
-        <h3>Silahkan pilih kelas Anda untuk melanjutkan ke lembar soal</h3>
+        <img src="logo-mts.png" alt="Logo MTs Khairussa'adah" class="school-logo" onerror="this.style.display='none'">
+        
+        <h2>PILIH KELAS UJIAN</h2>
+        <h3>Silahkan pilih kelas Anda untuk melanjutkan ke soal</h3>
 
         <div class="form-group">
             <label for="kelas">Kelas</label>
@@ -212,14 +218,13 @@
 
     <script>
         // Ganti dengan URL Web App dari Google Apps Script Anda
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzygNDA0itEY4gQ4VOY42Ped5XaAhXVnX5oz6kyOQI2L1u5fyG1d_UDkONLMrw8yQ/exec
-";
+        const WEB_APP_URL = "URL_WEB_APP_ANDA_DISINI";
 
         // Data Tautan Google Form Soal Ujian per Kelas
         const linkSoal = {
-            "VII": "https://forms.gle/CRQN5WjCUNe3g47S6",
-            "VIII": "https://forms.gle/32u3qi6D2JyWGtpk6",
-            "IX": "https://forms.gle/Mt1GhKmWQwbEJ4P16"
+            "VII": "https://forms.google.com/LINK_KELAS_7",
+            "VIII": "https://forms.google.com/LINK_KELAS_8",
+            "IX": "https://forms.google.com/LINK_KELAS_9"
         };
 
         // Proses Login Mengecek ke Google Sheets
@@ -232,7 +237,7 @@
             const errorMsg = document.getElementById('error-message');
             errorMsg.classList.add('hidden');
             btnLogin.classList.add('loading');
-            btnLogin.innerText = "Memeriksa...";
+            btnLogin.innerText = "Memeriksa Akun...";
 
             fetch(WEB_APP_URL, {
                 method: "POST",
